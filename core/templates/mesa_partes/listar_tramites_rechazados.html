@@ -1,0 +1,58 @@
+{% extends 'mesa_partes/home.html' %}
+{% load static %}
+{% block title %}Trámites Rechazados{% endblock %}
+
+{% block content %}
+
+<h1>Trámites Rechazados</h1>
+
+<table class= "table">
+    <thead>
+        <tr>
+        <th>Asunto</th>
+        <th>Tipo - Remitente</th>
+        <!-- <th>Perfil</th> -->
+        <th>Tipo Documento</th>
+        <th>Estado</th>
+        <th>Fecha de Recepción</th>
+        <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tramite in tramites_rechazados %}
+        <tr>
+            <td>{{ tramite.documento.asunto }}</td>
+            <td>{{ tramite.documento.remitente }}</td>
+            <!-- <td>{{ tramite.documento.perfil }}</td> -->
+            <td>{{ tramite.documento.tipo_documento }}</td>
+            <td>{{ tramite.estado_tramite }}</td>
+            <td>{{ tramite.documento.fecha_recepcion }}</td>
+            <td>
+                <a href="{% url 'ver_tramite' tramite.id %}"  class="btn btn-warning">Ver</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+
+    </tbody>
+</table>
+
+
+<div class= "modal fade" id="derivar" role="dialog">
+
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+    var $ = jQuery.noConflict();
+    function abrir_modal_derivar(url){
+        $('#derivar').load(url, function (){
+            $(this).modal('show');
+        });
+    }
+</script>
+
+{% endblock scripts %}

@@ -1,0 +1,40 @@
+{% extends 'areas/home.html' %}
+{% load static %}
+{% block title %}Derivar Documento{% endblock %}
+
+{% block content %}
+<h1>Listar Trámites Recibidos</h1>
+
+<table class= "table">
+    <thead>
+        <tr>
+        <th>Asunto</th>
+        <th>Tipo - Remitente</th>
+        <th>Perfil</th>
+        <th>Tipo Documento</th>
+        <th>Estado</th>
+        <th>Fecha de Recepción</th>
+        <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tramite in tramites_recibidos %}
+        <tr>
+            <td>{{ tramite.documento.asunto }}</td>
+            <td>{{ tramite.documento.remitente }}</td>
+            <td>{{ tramite.documento.perfil }}</td>
+            <td>{{ tramite.documento.tipo_documento }}</td>
+            <td>{{ tramite.estado_tramite }}</td>
+            <td>{{ tramite.documento.fecha_recepcion }}</td>
+            <td>
+                <a href=""  class="btn btn-warning">Ver</a>
+                <a href="{% url 'responder_tramite' tramite.id %}"  class="btn btn-success">Responder</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+
+    </tbody>
+</table>
+
+{% endblock content %}

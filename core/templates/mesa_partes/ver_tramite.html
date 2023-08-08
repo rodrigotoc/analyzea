@@ -1,0 +1,34 @@
+{% extends 'mesa_partes/home.html' %}
+{% load static %}
+{% block title %}Ver Trámite{% endblock %}
+
+{% block content %}
+
+<h1>Ver Trámite</h1>
+
+<main class="main-content  mt-0">
+    <div class="col-xl-8 col-lg-9 col-md-10 d-flex flex-column mx-auto">
+      <div class="card-body">
+        <label >Documento</label>
+        <div class="form-control mb-3">{{ tramite.documento.asunto }}</div>
+        <label >Perfil</label>
+        <div class="form-control mb-3">{{ tramite.documento.perfil }}</div>
+        <label >Tipo de Documento</label>
+        <div class="form-control mb-3">{{ tramite.documento.tipo_documento }}</div>
+        <label >Remitente</label>
+        <div class="form-control mb-3">{{ tramite.documento.remitente }}</div>
+        <label >Fecha de Recepción</label>
+        <div class="form-control mb-3">{{ tramite.documento.fecha_recepcion }}</div>
+        <label >Fecha de Emisión</label>
+        <div class="form-control mb-3">{{ tramite.documento.fecha_emision }}</div>
+        <label >Número</label>
+        <div class="form-control mb-3">{{ tramite.documento.numero }}</div>
+        <label >Derivación</label>
+        <div class="form-control mb-3">{{ tramite.derivacion.area_destino }}</div>
+        <label >Estado</label>
+        <div class="form-control mb-3">{{ tramite.estado_tramite.descripcion }}</div>
+      </div>
+    </div>
+  </main>
+
+{% endblock content %}

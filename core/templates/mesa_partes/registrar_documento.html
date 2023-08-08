@@ -1,0 +1,89 @@
+{% extends 'mesa_partes/home.html' %}
+{% load static %}
+{% block title %}Registrar Documento{% endblock %}
+
+{% block content %}
+
+<h1>Registrar Documento</h1>
+<p class="mb-0">
+  {% if msg %}
+    <span class="text-danger">{{ msg | safe }}</span>
+  {% else %}
+    Introduce los datos del documento
+  {% endif %}                      
+</p>
+<main class="main-content  mt-0">
+  <div class="col-xl-8 col-lg-9 col-md-10 d-flex flex-column mx-auto">
+    <div class="card-body">
+      <form role="form" method="post" action="#" id="documento-form" data-tipodocumentos-url="{% url 'cargar_tipo_documento' %}" data-remitentes-url="{% url 'cargar_remitente' %}">
+        
+        {% csrf_token %}
+          {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div class="mb-3">
+              {{field}}
+            </div>
+            {% comment %} <span class="text-danger">{{ field.errors }}</span> {% endcomment %}
+          {% endfor %}
+    
+          <div class="text-center">
+            <button type="submit" class="btn bg-gradient-info w-100 mt-1 mb-0">Registrar Documento</button>
+          </div>
+    
+      </form>
+    </div>
+  </div>
+</main>
+
+
+<!-- PopUp -->
+
+<td>
+  <a href="{% url 'crear_remitente' %}"  class="btn btn-warning">Crear Remitente</a>
+</td>
+
+  {% endblock content %}
+
+{% block scripts %}
+<script>
+  $(function() {
+    $('#id_perfil').change(function() {
+      var url = $('#documento-form').attr('data-tipodocumentos-url');
+      var perfilId = $(this).val();
+  
+      $.ajax({
+        url: url,
+        data: {
+          'perfil': perfilId
+        },
+        success: function(data) {
+          var tipo_documentos = $('#id_tipo_documento');
+          tipo_documentos.empty();
+          $(data).each(function() {
+            tipo_documentos.append($('<option>').val(this.id).text(this.nombre));
+          });
+        }
+      });
+    });
+    
+    $('#id_tipo_remitente').change(function() {
+      var url = $('#documento-form').attr('data-remitentes-url');
+      var remitenteId = $(this).val();
+  
+      $.ajax({
+        url: url,
+        data: {
+          'remitente': remitenteId
+        },
+        success: function(data) {
+          var remitentes = $('#id_remitente');
+          remitentes.empty();
+          $(data).each(function() {
+            remitentes.append($('<option>').val(this.id).text(this.nombres));
+          });
+        }
+      });
+    });    
+  });
+</script>
+{% endblock scripts %}
